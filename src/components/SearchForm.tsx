@@ -1,5 +1,5 @@
 // React
-import React, { RefObject, createRef } from 'react';
+import React, { createRef } from 'react';
 
 // CSS
 import './SearchForm.scss';
@@ -13,23 +13,26 @@ import axios from 'axios';
 const SearchForm = () => {
   let textInput = createRef<HTMLInputElement>();
 
-  const searchCity = () => {
-    if (!textInput.current !== null) {
-      console.log(textInput.current);
+  const searchCity = async () => {
+    if (textInput.current !== null) {
+      const apiResult = await searchCityApiCall(textInput.current.value);
+      console.log(apiResult);
     }
+  };
 
-    axios
+  const searchCityApiCall = (city: string) => {
+    return axios
       .get(API_URL_WEATHER, {
         params: {
-          q: 'Tilburg',
-          appid: API_KEY,
+          q: city,
+          APPID: API_KEY,
         },
       })
       .then(function(response) {
-        console.log(response);
+        return response;
       })
       .catch(function(error) {
-        console.log(error);
+        return error;
       });
   };
 
