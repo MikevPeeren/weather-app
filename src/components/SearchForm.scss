@@ -1,0 +1,28 @@
+.SearchForm {
+  margin-top: 2em;
+
+  &__input {
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 2em;
+    font-weight: bold;
+    color: white;
+    padding: 0.1em;
+    border-bottom: 1px solid;
+  }
+
+  &__button {
+    width: 10em;
+    height: 3em;
+    border-radius: 1.5em;
+    margin: 1em;
+    color: white;
+    font-size: 1em;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    padding: 15px 20px;
+    border-color: #4caf50;
+    background-color: #4caf50;
+  }
+}

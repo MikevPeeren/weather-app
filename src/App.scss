@@ -1,0 +1,12 @@
+.App {
+  &__search--container {
+    text-align: left;
+    margin: 5em;
+  }
+
+  &__search--header {
+    font-size: 5em;
+    font-weight: bold;
+    color: white;
+  }
+}
