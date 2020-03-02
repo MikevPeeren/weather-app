@@ -21,8 +21,15 @@
     font-size: 1em;
     font-weight: bold;
     letter-spacing: 0.1em;
-    padding: 15px 20px;
     border-color: #4caf50;
     background-color: #4caf50;
+  }
+
+  &__warningText {
+    color: red;
+    font-size: 1em;
+    font-weight: bold;
+    margin-top: 5px;
+    margin-bottom: 20px;
   }
 }

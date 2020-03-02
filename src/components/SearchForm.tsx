@@ -14,6 +14,9 @@ import axios from 'axios';
 
 const SearchForm = () => {
   const [city, setCity] = useState();
+  const [temperature, setTemperature] = useState();
+  const [weatherCondition, setWeatherCondition] = useState();
+  const [warningText, setWarningText] = useState();
 
   let textInput = createRef<HTMLInputElement>();
 
@@ -22,8 +25,16 @@ const SearchForm = () => {
       const apiResult = await searchCityApiCall(textInput.current.value);
       const resultData = apiResult.data;
 
-      console.log(resultData);
-      setCity(resultData.name);
+      if (resultData) {
+        console.log(resultData);
+
+        setWarningText('');
+        setCity(resultData.name);
+        setTemperature(resultData.main.temp);
+        setWeatherCondition(resultData.weather[0].main);
+      } else {
+        setWarningText('This city could not be found. Please try again.');
+      }
     }
   };
 
@@ -33,6 +44,7 @@ const SearchForm = () => {
         params: {
           q: city,
           APPID: API_KEY,
+          units: 'metric',
         },
       });
       return response;
@@ -49,6 +61,11 @@ const SearchForm = () => {
           ref={textInput}
           type="text"
           placeholder="Search for a city..."
+          onKeyPress={event => {
+            if (event.key === 'Enter') {
+              searchCity();
+            }
+          }}
         />
         <button
           className="SearchForm__button"
@@ -57,9 +74,16 @@ const SearchForm = () => {
         >
           {SEARCH}
         </button>
+        <div className="SearchForm__warningText">{warningText}</div>
       </div>
 
-      {city && <WeatherCard city={city}></WeatherCard>}
+      {city && (
+        <WeatherCard
+          city={city}
+          temperature={temperature}
+          weatherCondition={weatherCondition}
+        ></WeatherCard>
+      )}
     </React.Fragment>
   );
 };
