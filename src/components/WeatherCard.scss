@@ -1,5 +1,11 @@
 .WeatherCard {
   margin-top: '50px' !important;
+  display: flex;
+  flex-direction: row;
+}
+
+.card {
+  margin-right: 10px;
 }
 
 .card-img-top {

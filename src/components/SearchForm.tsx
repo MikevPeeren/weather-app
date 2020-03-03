@@ -17,6 +17,7 @@ const SearchForm = () => {
   const [temperature, setTemperature] = useState();
   const [weatherCondition, setWeatherCondition] = useState();
   const [warningText, setWarningText] = useState();
+  const [allCitys, setAllCity] = useState();
 
   let textInput = createRef<HTMLInputElement>();
 
@@ -26,12 +27,12 @@ const SearchForm = () => {
       const resultData = apiResult.data;
 
       if (resultData) {
-        console.log(resultData);
-
         setWarningText('');
         setCity(resultData.name);
         setTemperature(resultData.main.temp);
         setWeatherCondition(resultData.weather[0].main);
+        if (allCitys) setAllCity([...allCitys, resultData.name]);
+        else setAllCity([resultData.name]);
       } else {
         setWarningText('This city could not be found. Please try again.');
       }
@@ -80,6 +81,7 @@ const SearchForm = () => {
       {city && (
         <WeatherCard
           city={city}
+          allCitys={allCitys}
           temperature={temperature}
           weatherCondition={weatherCondition}
         ></WeatherCard>
