@@ -15,10 +15,19 @@ interface WeatherCardProps {
 
 const WeatherCard: React.FC<WeatherCardProps> = props => {
   const { city, temperature, weatherCondition } = props;
+
+  const imageSource =
+    weatherCondition && weatherCondition.toLowerCase() === 'clouds'
+      ? './images/clouds.jpg'
+      : './images/sunny.jpg';
   return (
     <div className="WeatherCard">
-      <Card border="light" bg="light" style={{ width: '20rem' }}>
-        <Card.Img variant="top" src="" />
+      <Card
+        border="light"
+        bg="light"
+        style={{ width: '15rem', height: '20rem' }}
+      >
+        <Card.Img variant="top" src={imageSource} />
         <Card.Body>
           <Card.Title>{city}</Card.Title>
           <Card.Text>
