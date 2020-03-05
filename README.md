@@ -2,6 +2,8 @@
 
 A weather application to get the temperature, weather condition and whether it is day or night of a particular city.
 
+Available at: https://mikevpeeren.github.io/Weather-App/
+
 ## User Stories
 
 - [x] ~Enter the name of a city into the `input` field.~
