@@ -4,41 +4,53 @@ import React, { createRef, useState } from 'react';
 // CSS
 import './SearchForm.scss';
 
+// Components
 import WeatherCard from './WeatherCard';
 
 // Constants
-import { SEARCH, API_URL_WEATHER, API_KEY } from '../constants/searchform';
+import {
+  SEARCH,
+  INPUT_PLACEHOLDER,
+  API_URL_WEATHER,
+  API_KEY,
+} from '../constants/searchform';
 
 // Api
 import axios from 'axios';
 
-const SearchForm = () => {
-  const [city, setCity] = useState();
-  const [temperature, setTemperature] = useState();
-  const [weatherCondition, setWeatherCondition] = useState();
+const SearchForm: React.FC = () => {
   const [warningText, setWarningText] = useState();
-  const [allCitys, setAllCity] = useState();
+  const [allCitys, setAllCitys] = useState(
+    // @ts-ignore
+    JSON.parse(localStorage.getItem('localStorageCitys')),
+  );
 
-  let textInput = createRef<HTMLInputElement>();
+  const textInput = createRef<HTMLInputElement>();
 
-  const searchCity = async () => {
+  /**
+   * Based on the input value make API call and handle the results.
+   *
+   * @returns {void}
+   */
+  const searchCityByTextInput = async () => {
     if (textInput.current !== null) {
       const apiResult = await searchCityApiCall(textInput.current.value);
-      const resultData = apiResult.data;
 
-      if (resultData) {
-        setWarningText('');
-        setCity(resultData.name);
-        setTemperature(resultData.main.temp);
-        setWeatherCondition(resultData.weather[0].main);
-        if (allCitys) setAllCity([...allCitys, resultData.name]);
-        else setAllCity([resultData.name]);
+      if (apiResult.data) {
+        handleResultData(apiResult.data);
       } else {
         setWarningText('This city could not be found. Please try again.');
       }
     }
   };
 
+  /**
+   * The call towards OpenWeatherApi happends here
+   *
+   * @param {string} city
+   *
+   * @returns {object}
+   */
   const searchCityApiCall = async (city: string) => {
     try {
       const response = await axios.get(API_URL_WEATHER, {
@@ -54,6 +66,44 @@ const SearchForm = () => {
     }
   };
 
+  /**
+   * Handles the data that was returned from the API call
+   *
+   * @param resultData
+   *
+   * @returns {void}
+   */
+  const handleResultData = (resultData: {
+    name: string;
+    main: { temp: string };
+    weather: [
+      {
+        main: string;
+        icon: string;
+        description: string;
+      },
+    ];
+  }) => {
+    setWarningText('');
+
+    const cityObject = {
+      cityName: resultData.name,
+      temperature: resultData.main.temp,
+      weatherCondition: resultData.weather[0],
+    };
+
+    if (allCitys) {
+      setAllCitys([...allCitys, cityObject]);
+      localStorage.setItem(
+        'localStorageCitys',
+        JSON.stringify([...allCitys, cityObject]),
+      );
+    } else {
+      setAllCitys([cityObject]);
+      localStorage.setItem('localStorageCitys', JSON.stringify([cityObject]));
+    }
+  };
+
   return (
     <React.Fragment>
       <div className="SearchForm">
@@ -61,31 +111,24 @@ const SearchForm = () => {
           className="SearchForm__input"
           ref={textInput}
           type="text"
-          placeholder="Search for a city..."
+          placeholder={INPUT_PLACEHOLDER}
           onKeyPress={event => {
             if (event.key === 'Enter') {
-              searchCity();
+              searchCityByTextInput();
             }
           }}
         />
         <button
           className="SearchForm__button"
           type="submit"
-          onClick={() => searchCity()}
+          onClick={() => searchCityByTextInput()}
         >
           {SEARCH}
         </button>
         <div className="SearchForm__warningText">{warningText}</div>
       </div>
 
-      {city && (
-        <WeatherCard
-          city={city}
-          allCitys={allCitys}
-          temperature={temperature}
-          weatherCondition={weatherCondition}
-        ></WeatherCard>
-      )}
+      {allCitys && <WeatherCard allCitys={allCitys}></WeatherCard>}
     </React.Fragment>
   );
 };

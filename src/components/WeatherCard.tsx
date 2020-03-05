@@ -1,5 +1,5 @@
 // React
-import React, { useState } from 'react';
+import React from 'react';
 
 // CSS
 import './WeatherCard.scss';
@@ -7,45 +7,61 @@ import './WeatherCard.scss';
 // Bootstrap
 import Card from 'react-bootstrap/Card';
 
+// Constants
+import {
+  TEMPERATURE,
+  WEATHER_CONDITION,
+  WEATHER_DESCRIPTION,
+} from '../constants/weather';
+
 interface WeatherCardProps {
-  city: string;
   allCitys: [];
-  temperature: string;
-  weatherCondition: string;
 }
 
 const WeatherCard: React.FC<WeatherCardProps> = props => {
-  const [previousCitys, setPreviousCitys] = useState();
-
-  const { city, allCitys, temperature, weatherCondition } = props;
-
-  console.log(allCitys);
-
-  const imageSource =
-    weatherCondition && weatherCondition.toLowerCase() === 'clouds'
-      ? './images/clouds.jpg'
-      : './images/sunny.jpg';
+  const { allCitys } = props;
 
   return (
     <div className="WeatherCard">
       {allCitys &&
-        allCitys.map((city, key) => (
-          <Card
-            border="light"
-            bg="light"
-            style={{ width: '15rem', height: '20rem' }}
-          >
-            <Card.Img variant="top" src={imageSource} />
-            <Card.Body>
-              <Card.Title>{city}</Card.Title>
-              <Card.Text>
-                Temperature: {temperature}
-                <br />
-                Weather Condition: {weatherCondition}
-              </Card.Text>
-            </Card.Body>
-          </Card>
-        ))}
+        allCitys.map(
+          (
+            city: {
+              cityName: string;
+              temperature: string;
+              weatherCondition: {
+                main: string;
+                icon: string;
+                description: string;
+              };
+            },
+            key,
+          ) => (
+            <Card
+              key={Math.random()}
+              border="light"
+              bg="light"
+              style={{ width: '15rem', height: '20rem' }}
+            >
+              <Card.Img
+                variant="top"
+                src={`https://openweathermap.org/img/wn/${city.weatherCondition.icon}@2x.png`}
+              />
+              <Card.Body>
+                <Card.Title>{city.cityName}</Card.Title>
+                <Card.Text>
+                  <i>{TEMPERATURE}</i> {city.temperature}
+                  <br />
+                  <br />
+                  <i>{WEATHER_CONDITION}</i> {city.weatherCondition.main}
+                  <br />
+                  <i>{WEATHER_DESCRIPTION}</i>{' '}
+                  {city.weatherCondition.description}
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          ),
+        )}
     </div>
   );
 };

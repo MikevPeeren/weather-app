@@ -1,4 +1,5 @@
 export const SEARCH = 'SEARCH';
+export const INPUT_PLACEHOLDER = 'Search for a city...';
 
 export const API_URL_WEATHER =
   'https://api.openweathermap.org/data/2.5/weather';
