@@ -1,4 +1,4 @@
-![Build and Deploy](https://github.com/MikevPeeren/Emoji-Translator/workflows/Build%20and%20Deploy/badge.svg)
+![Build and Deploy](https://github.com/MikevPeeren/Weather-App/workflows/Build%20and%20Deploy/badge.svg)
 
 # Weather App
 
