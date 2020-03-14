@@ -1,7 +1,6 @@
 {
   "name": "weather-app",
   "version": "1.0.0",
-  "private": true,
   "homepage": "https://mikevpeeren.github.io/Weather-App",
   "dependencies": {
     "@testing-library/jest-dom": "^5.1.1",
