@@ -1,3 +1,5 @@
+![Build and Deploy](https://github.com/MikevPeeren/Emoji-Translator/workflows/Build%20and%20Deploy/badge.svg)
+
 # Weather App
 
 A weather application to get the temperature, weather condition and whether it is day or night of a particular city.
