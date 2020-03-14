@@ -19,7 +19,7 @@ import {
 import axios from 'axios';
 
 const SearchForm: React.FC = () => {
-  const [warningText, setWarningText] = useState();
+  const [warningText, setWarningText] = useState('');
   const [allCitys, setAllCitys] = useState(
     // @ts-ignore
     JSON.parse(localStorage.getItem('localStorageCitys')),
