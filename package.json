@@ -21,7 +21,7 @@
     "react-bootstrap": "^1.2.2",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
-    "typescript": "~3.9.6"
+    "typescript": "~3.9.7"
   },
   "scripts": {
     "predeploy": "npm run build",
