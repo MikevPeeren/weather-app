@@ -93,6 +93,7 @@ const SearchForm: React.FC = () => {
     };
 
     if (allCitys) {
+      //@ts-ignore
       setAllCitys([...allCitys, cityObject]);
       localStorage.setItem(
         'localStorageCitys',
