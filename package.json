@@ -4,7 +4,7 @@
   "license": "MIT",
   "homepage": "https://mikevpeeren.github.io/Weather-App",
   "dependencies": {
-    "@babel/helper-builder-react-jsx": "^7.12.13",
+    "@babel/helper-builder-react-jsx": "^7.14.5",
     "@testing-library/jest-dom": "^5.13.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^13.1.9",
