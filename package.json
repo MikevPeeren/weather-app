@@ -5,7 +5,7 @@
   "homepage": "https://mikevpeeren.github.io/Weather-App",
   "dependencies": {
     "@babel/helper-builder-react-jsx": "^7.16.7",
-    "@testing-library/jest-dom": "^5.16.3",
+    "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.4.1",
