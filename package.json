@@ -15,7 +15,7 @@
     "axios": "^0.26.1",
     "bootstrap": "^4.6.0",
     "gh-pages": "^3.2.3",
-    "http-proxy-middleware": "^2.0.4",
+    "http-proxy-middleware": "^2.0.5",
     "react": "^18.0.0",
     "react-bootstrap": "^2.2.3",
     "react-dom": "^18.0.0",
